@@ -18,6 +18,8 @@ function sendMessage() {
   const prompt = previous_conversation + message;
   previous_conversation = prompt;
 
+  console.log(message);
+
   chatBoxBody.innerHTML += `<div class="message"><p>${message}</p></div>`;
   chatBoxBody.innerHTML += `<div id="loading" class="response loading">.</div>`;
   scrollToBottom();

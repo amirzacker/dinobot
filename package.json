@@ -1,0 +1,15 @@
+{
+  "name": "dinobot",
+  "version": "0.1.0",
+  "description": "dinobot",
+  "main": "app.js",
+  "scripts": {
+    "build": "cd api && npm ci",
+    "start": "node api/index2.js"
+  },
+  "author": "Amir zacker",
+  "license": "ISC",
+  "engines": {
+    "node": "16.13.1"
+  }
+}
