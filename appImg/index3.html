@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sélecteur de chapitres</title>
+    <style>
+      body {
+        background-color: #0c4da2;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        height: 100vh;
+      }
+      form {
+        margin: 0 auto;
+        width: 50%;
+        text-align: center;
+        padding: 2em;
+      }
+      select {
+        font-size: 1.2em;
+        padding: 0.5em;
+        margin-bottom: 1em;
+        border-radius: 5px;
+        border: none;
+      }
+      button {
+        background-color: #0c4da2;
+        color: white;
+        font-size: 1.2em;
+        padding: 0.5em 1em;
+        border-radius: 5px;
+        border: none;
+      }
+      button:hover {
+        cursor: pointer;
+        background-color: #003366;
+      }
+      #selected-chapter {
+        font-size: 2em;
+        padding: 2em;
+        width: 100%;
+        text-align: center;
+      }
+      #form-container, #selected-container {
+        width: 50%;
+        height: 100%;
+      }
+      #form-container {
+        background-color: #003366;
+      }
+      #selected-container {
+        background-color: #0c4da2;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="form-container">
+      
+    <form id="image-form">
+      <div class="form-control">
+        <label for="classe">Classe : </label>
+        <select id="classe" name="classe">
+          <option value="3e">3e</option>
+          <option value="4e">4e</option>
+          <option value="5e">5e</option>
+          <option value="6e">6e</option>
+        </select>
+      </div>
+
+      <div class="form-control"></div>
+
+      <div class="form-control">
+        <label for="matiere">Matière : </label>
+        <select id="matiere" name="matiere">
+          <option selected disabled value="">choisir</option>
+          <option value="francais">Français</option>
+          <option value="maths">Mathématiques</option>
+          <option value="physique-chimie">Physique-Chimie</option>
+        </select>
+      </div>
+      <div class="form-control">
+        <label for="chapter">Chapitre :</label>
+        <select id="chapter" name="chapter" required>
+          <option selected disabled value="xxx">choisir</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label for="requete">Requete :</label>
+        <select id="requete" name="requete" required>
+          <option selected disabled value="xxx">choisir</option>
+          <option value="exercices">exercices</option>
+          <option value="resume-du-cours">résumé du cours</option>
+          <option value="chat">chat</option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label for="level">Niveau :</label>
+        <select id="level" name="level">
+          <option selected disabled value="">choisir</option>
+          <option value="exercice de découverte">exercice de découverte</option>
+          <option value="exercice d'entraînement">
+            exercice d'entraînement
+          </option>
+        </select>
+      </div>
+
+      <div class="form-control">
+        <label for="exercice">Exercice :</label>
+        <select id="exercice" name="exercice" required>
+          <option selected disabled value="xxx">choisir</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn">Valider</button>
+    </form>
+    </div>
+    <div id="selected-container">
+      <div id="selected-chapter"></div>
+    </div>
+    <script>
+      function displaySelectedChapter() {
+        var chapters = document.getElementById("chapters");
+        var selectedChapter = chapters.options[chapters.selectedIndex].text;
+        document.getElementById("selected-chapter").innerHTML = "Vous avez sélectionné le chapitre : " + selectedChapter;
+      }
+    </script>
+  </body>
+</html>

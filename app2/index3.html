@@ -1,0 +1,433 @@
+<html>
+  <head>
+
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="./styles.css" />
+      <link rel="stylesheet" href="./spinner.css" />
+  
+      <script src="./main.js" defer></script>
+      <title>Dino Bot</title>
+    </head>
+    <style>
+      .main-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.form-container {
+  width: 50%;
+  background-color: rgb(157, 176, 237);
+  padding: 20px;
+}
+
+.response-container {
+  width: 50%;
+  background-color: rgb(52, 132, 159);
+  padding: 50px;
+  border: 5px black solid;
+}
+
+.title-reponse {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
+
+  .form-container,
+  .response-container {
+    width: 100%;
+  }
+
+  .showcase form input,
+form select, 
+textarea {
+  width: 300px;
+}
+
+
+
+
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="form-container showcase ">
+        <form id="image-form">
+          <h1>Dino Bot</h1>
+
+          <div class="form-control">
+            <select id="classe" name="classe">
+              <option disabled >Classe</option>
+              <option value="3e">3e</option>
+              <option value="4e">4e</option>
+              <option value="5e">5e</option>
+              <option value="6e">6e</option>
+            </select>
+          </div>
+
+
+          <div class="form-control">
+            <select id="matiere" name="matiere">
+              <option selected disabled value="xxx">choisir</option>
+              <option value="francais">Français</option>
+              <option value="maths">Mathématiques</option>
+              <option value="physique-chimie">Physique-Chimie</option>
+            </select>
+          </div>
+
+
+          <div class="form-control">
+            <select id="chapter" name="chapter" required>
+              <option selected disabled value="xxx">choisir</option>
+            </select>
+          </div>
+
+          <div class="form-control">
+            <select id="requete" name="requete" required>
+              <option selected disabled value="xxx">choisir</option>
+              <option value="exercices">exercices</option>
+              <option value="resume-du-cours">résumé du cours</option>
+              <option value="chat">chat</option>
+            </select>
+          </div>
+
+
+          <div class="form-control">
+            <select id="level" name="level">
+              <option selected disabled value="xx">choisir</option>
+              <option value="exercice de découverte">
+                exercice de découverte
+              </option>
+              <option value="exercice d'entraînement">
+                exercice d'entraînement
+              </option>
+            </select>
+          </div>
+
+
+          <div class="form-control">
+            <select id="exercice" name="exercice" >
+              <option selected disabled value="xxx">choisir</option>
+            </select>
+          </div>
+
+       
+
+          <div class="form-control">
+            <textarea name="prompt" id="prompt" cols="30" placeholder="  Pose ta questions..." rows="10" ></textarea>
+          </div>   
+
+          <div class="form-control">
+            <input type="checkbox" id="question" name="question" class="checkbox-input" />
+            <label for="question">Cochez cette case si vous voulez  poser votre question.....</label>
+          </div> 
+
+          <button type="submit" class="btn">Valider</button>
+        </form>
+      </div>
+      <div class="response-container">
+        <div class="title-reponse">
+          <h1>Résultat</h1>
+
+        </div>
+        <div class="message">
+          <p id="reponse"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="spinner"></div>
+  </body>
+
+  <script>
+    const prompt = document.getElementById('prompt');
+    const question = document.getElementById('question');
+  
+    prompt.addEventListener('input', function() {
+      if (prompt.value.trim().length > 0) {
+        question.required = true;
+      } else {
+        question.required = false;
+      }
+    });
+  </script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      // Get the form elements
+      var requeteSelect = document.getElementById("requete");
+      var levelSelect = document.getElementById("level");
+      var exerciceSelect = document.getElementById("exercice");
+
+      // Add an event listener to the requete select field
+      requeteSelect.addEventListener("change", function() {
+          // Get the selected option value
+          var requeteValue = this.value;
+
+          if (requeteValue === "exercices") {
+              // Show the level and exercice fields
+              levelSelect.style.display = "block";
+              exerciceSelect.style.display = "block";
+          } else {
+              // Hide the level and exercice fields
+              levelSelect.style.display = "none";
+              exerciceSelect.style.display = "none";
+          }
+      });
+  });
+</script>
+
+
+<script>
+  // Get the form elements
+  var classeSelect = document.getElementById("classe");
+  var matiereSelect = document.getElementById("matiere");
+  var chapterSelect = document.getElementById("chapter");
+
+  // Define the options for each class and subject
+  var chapters = {
+      "3e": {
+          "francais": [
+              "Chapitre 01 - Introduction au DNB",
+              "Chapitre 02 - L'art poétique pour se raconter",
+              "Chapitre 03 - La poésie engagée",
+              "Chapitre 04 - Dénoncer les travers de la société",
+              "Chapitre 05 - Agir dans la cité - Individu et pouvoir au théâtre",
+              "Chapitre 06 - Vision poétique du monde",
+              "Chapitre 07 - Progrès et rêves scientifiques",
+              "Chapitre 08 - Les propositions",
+              "Chapitre 09 - Le participe passé",
+              "Chapitre 10 - Le vocabulaire"
+          ],
+          "physique-chimie": [
+              "Chapitre 01 - Les éléments chimiques dans l'univers",
+              "Chapitre 02 - Les ions dans la matière",
+              "Chapitre 03 - Les solutions acides, basiques et transformation",
+              "Chapitre 04 - Les caractéristiques d'une espèce chimique",
+              "Chapitre 05 - Le mouvement d'un objet",
+              "Chapitre 06 - Les interactions et les forces",
+              "Chapitre 07 - La Gravitation",
+              "Chapitre 08 - L'énergie électrique",
+              "Chapitre 09 - Energie mécanique",
+              "Chapitre 10 - Les ondes"
+          ],
+          "maths": [
+              "Chapitre 01. Calcul numérique",
+              "Chapitre 02. Volume - espace",
+              "Chapitre 03. Arithmétique",
+              "Chapitre 04. Homothétie thalès",
+              "Chapitre 05. Calcul littéral",
+              "Chapitre 06. Notion de fonction",
+              "Chapitre 07. Trigonométrie",
+              "Chapitre 08. Statistiques",
+              "Chapitre 09. Fonctions affines",
+              "Chapitre 10. Sections",
+              "Chapitre 11. Probabilités",
+              "Chapitre 12. Triangles semblables",
+              "Chapitre 13. Agrandissement -reduction"
+          ],
+      },
+      "4e": {
+          "francais": [
+              "Chapitre 01 - Dire l'amour en poésie",
+              "Chapitre 02 - Dire l'amour au théâtre",
+              "Chapitre 03 - Confrontations de valeurs au théâtre et dans le récit",
+              "Chapitre 04 - Réalisme et naturalisme",
+              "Chapitre 05 - Le récit fantastique",
+              "Chapitre 06 - Informer et s'informer",
+              "Chapitre 07 - Déformer et désinformer",
+              "Chapitre 08 - La ville, lieu de tous les possibles"
+          ],
+
+          "maths": [
+              "Chapitre 01 - Nombres relatifs opérations",
+              "Chapitre 02 – Théorème de Pythagore",
+              "Chapitre 03 – Les nombres rationnels",
+              "Chapitre 04 - Les puissances",
+              "Chapitre 05 – Géométrie translation-rotation",
+              "Chapitre 06 – Le calcul littéral",
+              "Chapitre 07 – Les triangles égaux",
+              "Chapitre 08 - Statistiques",
+              "Chapitre 09 - Proportionnalité",
+              "Chapitre 10 - Equations",
+              "Chapitre 11 - Cône pyramide",
+              "Chapitre 12 - Probabilités",
+              "Chapitre 13 – Espace et repérage"
+          ],
+
+          "physique-chimie": [
+              "Chapitre 01 - Le courant électrique",
+              "Chapitre 02 - Tension électrique",
+              "Chapitre 03 - Les molécules",
+              "Chapitre 04 - La combustion",
+              "Chapitre 05 - Vitesse et mouvement",
+              "Chapitre 06 - L'univers",
+              "Chapitre 07 - Caractéristiques d'une espèce chimique",
+              "Chapitre 08 - L'énergie électrique"
+          ]
+      },
+      "5e": {
+          "francais": [
+              "Chapitre 01 - Les chevaliers, ces héros !",
+              "Chapitre 02 - La Littérature au Moyen-Âge",
+              "Chapitre 03 - Le Merveilleux médiéval",
+              "Chapitre 04 - Molière et son temps : La Comédie au XVIIe siècle",
+              "Chapitre 05 - La Poésie, des mots qui transforment le monde !",
+              "Chapitre 06 - Avec autrui : La famille, les amis, au cœur de l'écriture !",
+              "Chapitre 07 - Etude de la langue"
+          ],
+
+          "maths": [
+              "Chapitre 01. Enchaînement des opérations",
+              "Chapitre 02. Symétrie centrale",
+              "Chapitre 03. Nombres rationnels",
+              "Chapitre 04. Angles et droites parallèles",
+              "Chapitre 05. Nombre relatif et repérage",
+              "Chapitre 06. Nombre relatifs et opérations",
+              "Chapitre 07. Triangles",
+              "Chapitre 08. Proportionnalité",
+              "Chapitre 09. Parallélogramme",
+              "Chapitre 10. Statistiques",
+              "Chapitre 11. Géométrie dans l'espace",
+              "Chapitre 12. Calcul littéral"
+          ],
+
+          "physique-chimie": [
+              "Chapitre 01 - L'eau dans tous ses états",
+              "Chapitre 02 - La masse et le volume",
+              "Chapitre 03 - Les mélanges de liquides et de solides",
+              "Chapitre 04 - Les mélanges gazeux",
+              "Chapitre 05 - Les changements d'états",
+              "Chapitre 06 - La matière à la loupe",
+              "Chapitre 07 - Le circuit électrique simple",
+              "Chapitre 08 - Les différents types de circuits",
+              "Chapitre 09 - Le son"
+          ]
+      },
+      "6e": {
+          "francais": [
+              "Chapitre 01 - Le Monstre",
+              "Chapitre 02 - La Ruse",
+              "Chapitre 03 - Créations Poétiques",
+              "Chapitre 04 - Récit d'aventure",
+              "Chapitre 05 - Récits de créations",
+              "Chapitre 06 - Outils de langue"
+          ],
+
+          "maths": [
+              "Chapitre 01 - Nombres décimaux",
+              "Chapitre 02 - Langage géométrie",
+              "Chapitre 03 - Opérations-multiplications",
+              "Chapitre 04 - Droites parallèles et perpendiculaire",
+              "Chapitre 05 - Opérations La division",
+              "Chapitre 06 - Les angles",
+              "Chapitre 07 - Partage et fractions",
+              "Chapitre 08 - Périmètre et aire",
+              "Chapitre 09 - Proportionnalité",
+              "Chapitre 10 - Figures usuelles",
+              "Chapitre 11 - Géométrie dans l'espace",
+              "Chapitre 12 - Symétrie axiale",
+              "Chapitre 13 - Gestion de données"
+          ],
+
+          "physique-chimie": [
+              "Chapitre 01 - L'energie",
+              "Chapitre 02 - La nature d'un signal",
+              "Chapitre 03 - Le mouvement",
+              "Chapitre 04 - La matière",
+              "Chapitre 05 - Caractéristiques d'un échantillon",
+              "Chapitre 06 - Les mélanges"
+          ]
+      },
+      // ...
+  };
+
+  // Add event listeners to the "Classe" and "Matière" select menus
+  classeSelect.addEventListener("change", updateChapterOptions);
+  matiereSelect.addEventListener("change", updateChapterOptions);
+
+  // Function to update the options in the "Chapitre" select menu
+  function updateChapterOptions() {
+      var selectedClass = classeSelect.value;
+      var selectedSubject = matiereSelect.value;
+
+      // Clear the current options in the "Chapitre" select menu
+      chapterSelect.innerHTML = "";
+
+      // Add the new options based on the selected class and subject
+      var newOptions = chapters[selectedClass][selectedSubject];
+      for (var i = 0; i < newOptions.length; i++) {
+          var option = document.createElement("option");
+          option.value = newOptions[i];
+          option.text = newOptions[i];
+          chapterSelect.appendChild(option);
+      }
+  }
+</script>
+
+<script>
+  // Create arrays to hold the options for each level and subject
+  const level1Options = ["Vrai ou faux", "Quiz à choix multiple", "Texte à trous", "Classement", "Mots croisés", "Anagrammes: Jumelage", "Trouver les différences"];
+  const level2MathOptions = ["Algèbre", "Analyse", "Géométrie", "Calcul mental", "Résolution de problèmes"];
+  const level2FrenchOptions = ["Exercices de compréhension de la lecture", "Exercices de grammaire", "Exercices de vocabulaire", "Exercices d'écriture"];
+  const level2ScienceOptions = ["Vrai ou faux", "Quizz", "Calculs", "Analyse de données", "Expériences", "Résolution de problèmes"];
+  // Get references to the form elements
+  const levelSelect = document.getElementById("level");
+  const subjectSelect = document.getElementById("matiere");
+  const exerciseSelect = document.getElementById("exercice");
+
+  // Add an event listener to the level select to listen for changes
+  levelSelect.addEventListener("change", (e) => {
+      // Get the selected level
+      const selectedLevel = e.target.value;
+      // Get the selected subject
+      const selectedSubject = subjectSelect.value;
+      // Clear the options in the exercise select
+      exerciseSelect.innerHTML = "";
+      // Check the selected level and subject to determine which options to add to the exercise select
+      if (selectedLevel === "exercice de découverte") {
+          level1Options.forEach((option) => {
+              const newOption = document.createElement("option");
+              newOption.value = option;
+              newOption.text = option;
+              exerciseSelect.appendChild(newOption);
+          });
+      } else if (selectedLevel === "exercice d'entraînement") {
+          if (selectedSubject === "maths") {
+              level2MathOptions.forEach((option) => {
+                  const newOption = document.createElement("option");
+                  newOption.value = option;
+                  newOption.text = option;
+                  exerciseSelect.appendChild(newOption);
+              });
+          } else if (selectedSubject === "francais") {
+              level2FrenchOptions.forEach((option) => {
+                  const newOption = document.createElement("option");
+                  newOption.value = option;
+                  newOption.text = option;
+                  exerciseSelect.appendChild(newOption);
+              });
+
+          } else if (selectedSubject === "physique-chimie") {
+              level2ScienceOptions.forEach((option) => {
+                  const newOption = document.createElement("option");
+                  newOption.value = option;
+                  newOption.text = option;
+                  exerciseSelect.appendChild(newOption);
+              });
+
+          }
+      }
+  })
+</script>
+</html>
