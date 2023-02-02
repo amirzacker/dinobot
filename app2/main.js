@@ -74,14 +74,14 @@ function typeText(element, text) {
   }, 20)
 }
 
+
+
 async function generateImageRequest(prompt) {
   try {
     showSpinner();
 // specific message div 
    // Récupérez les données du formulaire
    //const formData = new FormData(form);
-
-
 
   loader(messageDiv);
 

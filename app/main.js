@@ -51,6 +51,7 @@ function sendMessage() {
     clearInterval(dots);
     document.getElementById("loading").remove();
     console.log(data.message);
+    previous_conversation += data.message;
     chatBoxBody.innerHTML += `<div class="response"><p>${data.message}</p></div>`;
     scrollToBottom();
   })
