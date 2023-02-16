@@ -11,52 +11,6 @@
       <script src="./main.js" defer></script>
       <title>Dino Bot</title>
     </head>
-    <style>
-      .main-container {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-}
-
-.form-container {
-  width: 50%;
-  background-color: rgb(157, 176, 237);
-  padding: 20px;
-}
-
-.response-container {
-  width: 50%;
-  background-color: rgb(52, 132, 159);
-  padding: 50px;
-  border: 5px black solid;
-}
-
-.title-reponse {
-  text-align: center;
-}
-
-@media (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-  }
-
-  .form-container,
-  .response-container {
-    width: 100%;
-  }
-
-  .showcase form input,
-form select, 
-textarea {
-  width: 300px;
-}
-
-
-
-
-}
-
-    </style>
   </head>
   <body>
     <div class="main-container">
@@ -86,6 +40,7 @@ textarea {
           <div class="image-container">
             <h2 class="msg"></h2>
             <img src="" alt="" id="image" />
+            <button style="display:none" id="download-btn">Télécharger</button>
           </div>
         </div>
       </div>

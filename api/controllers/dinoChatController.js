@@ -28,16 +28,16 @@ const dinoChat = async (req, res) => {
 
   let prompts = "";
   if (requete === "exercices") {
-    const introduction = `Je suis un élève en classe de ${classe},et j’ai besoin de ton aide pour progresser. Je veux que tu te comportes comme un professeur de  ${matiere} , En classe ${classe}  au collège, dans la matière  ${matiere}, sur le ${chapter}.`;
+    //const introduction = `Je suis un élève en classe de ${classe},et j’ai besoin de ton aide pour progresser. Je veux que tu te comportes comme un professeur de  ${matiere} , En classe ${classe}  au collège, dans la matière  ${matiere}, sur le ${chapter}.`;
     const exercicepromt = ` Pourriez-vous me donner un exercice de    ${level} et de type  ${exercice} sur les  ${chapter} avec un niveau  debutant, avec au minimum 5 questions. N’affiche pas la correction , ni  la réponses.`;
-    console.log(question);
     if (question === true) {
       prompts =
         previous_conversation +
         ":" +
-        prompt  + ", et affiche moi l'ennoncé precedent.";
+        prompt  + ", tout en raappelant l'exercice.";
     } else {
-      prompts = introduction + exercicepromt + prompt;
+      prompts = exercicepromt + prompt;
+      //prompts = introduction + exercicepromt + prompt;
     }
 
     //previous_conversation += prompts ;
@@ -48,6 +48,7 @@ const dinoChat = async (req, res) => {
     if (question === true) {
       prompts = previous_conversation + " :" + prompt;
     } else {
+      //prompts =  resumepromt + prompt;
       prompts = introduction + resumepromt + prompt;
     }
 
