@@ -34,7 +34,7 @@ const dinoChat = async (req, res) => {
       prompts =
         previous_conversation +
         ":" +
-        prompt  + ", tout en raappelant l'exercice.";
+        prompt  + "de ce exercice tout en raappelant l'exercice.";
     } else {
       prompts = exercicepromt + prompt;
       //prompts = introduction + exercicepromt + prompt;

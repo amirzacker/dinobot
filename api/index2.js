@@ -23,7 +23,7 @@ const openai = new OpenAIApi(config);
 
 
 app.get('/', (req, res) => {
-    res.send('Welcome to the Coding Nexus API')
+    res.send('Welcome to the Dino Bot API')
 })
 app.post('/message', (req, res) => {
 
