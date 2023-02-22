@@ -37,7 +37,7 @@ app.post('/message', (req, res) => {
         top_p: 1,
         frequency_penalty: 0.8,
         presence_penalty: 0.2,
-        max_tokens: 3000
+        max_tokens: 2048,
     });
 
     response.then((data) => {
@@ -47,6 +47,7 @@ app.post('/message', (req, res) => {
         res.send(err);
     });
 });
+
 
 
 app.use('/openai/dinochat', dinChatRouter);

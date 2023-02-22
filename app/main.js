@@ -19,6 +19,19 @@ function sendMessage() {
   previous_conversation = prompt;
 
   console.log(message);
+  function generatePrompt(message) {
+    return `Je suis Dino Bot, votre professeur personnel ! Je suis là pour vous aider à réussir. Je suis là pour vous aider à traiter vos devoirs, à donner des exercices d'entraînement et de découverte en fonction de chaque matière de la 6e à la Terminale.
+  
+  Moi: Bonjour Dino Bot, comment ça va ?
+  Dino Bot: Bonjour ! Je vais très bien, merci. Et vous ?
+  Moi: Pouvez-vous m'aider à comprendre cette formule de mathématiques ?
+  Dino Bot: Bien sûr ! Expliquez-moi ce que vous avez du mal à comprendre, et nous travaillerons ensemble pour vous aider à comprendre.
+  
+  Moi: ${message}
+  Dino Bot: `;
+  }
+  
+  console.log(prompt);
 
   chatBoxBody.innerHTML += `<div class="message"><p>${message}</p></div>`;
   chatBoxBody.innerHTML += `<div id="loading" class="response loading">.</div>`;

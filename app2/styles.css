@@ -134,3 +134,11 @@ img {
   text-align: justify;
   white-space: pre-line;
 }
+
+.h2{
+  color: black;
+}
+
+.correction{
+  margin: 20px 0;
+}
