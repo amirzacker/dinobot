@@ -33,6 +33,11 @@ app.post('/message', (req, res) => {
           {"role" : "system", "content": "Je suis Dino Bot, votre professeur personnel ! Je suis là pour vous aider à réussir. Je suis là pour vous aider à traiter vos devoirs, à donner des exercices d'entraînement et de découverte en fonction de chaque matière de la 6e à la Terminale."},
           {"role" : "user", "content": `${req.body.prompt}`}
         ],
+        temperature: 0.4,
+        top_p: 1,
+        frequency_penalty: 0.8,
+        presence_penalty: 0.2,
+        max_tokens: 2048
     });
 
     response.then((data) => {

@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dinChatRouter = require('./routes/dinoChatRoute');
+const dinExoRouter = require('./routes/dinoExoRoute');
+const turboChatRouter = require('./routes/turboChatRoute');
 const generateImageRouter = require('./routes/imageGeneratorRoute');
 require('dotenv').config();
 
@@ -51,6 +53,8 @@ app.post('/message', (req, res) => {
 
 
 app.use('/openai/dinochat', dinChatRouter);
+app.use('/openai/turbochat', turboChatRouter);
+app.use('/openai/dinoexo', dinExoRouter);
 app.use('/openai/generateimage', generateImageRouter);
 
 app.listen(3000, () => console.log('Listening on port 3000'));
