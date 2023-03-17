@@ -235,7 +235,6 @@ reloadBtn.addEventListener("click", () => {
 // Define the event listeners
 button.addEventListener("click", sendChat);
 //button.addEventListener("click", sendMessage);
-//button.addEventListener("click", sendMessage);
 inputField.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
     sendMessage();
@@ -266,7 +265,7 @@ function sendMessage() {
       askQuestion();
     } else if (selectedOption === "Résumé du cours") {
       // Stop asking questions and show the resume
-      //showResume()
+      
       questionBotExo();
     }
   } else {
@@ -280,7 +279,7 @@ function askQuestion() {
   const { question, options } = questions[currentQuestion];
 
   // Display the question
-  chatBoxBody.innerHTML += `<div class="message"><p>${question}</p></div>`;
+  chatBoxBody.innerHTML += `<div class="response"><p>${question}</p></div>`;
   scrollToBottom();
 
   // Check if the current question is about the type of request
@@ -389,8 +388,7 @@ function askQuestion() {
 
 function selectOption(event) {
   const selectedOption = event.target.textContent;
-  // Add the selected class to the clicked button
-  event.target.classList.add("clicked");
+
   // Add the selected option to the array of responses
   userResponses.push(selectedOption);
 
@@ -409,7 +407,6 @@ function selectOption(event) {
     } else if (selectedOption === "Résumé du cours") {
       // Stop asking questions and show the resume
       questionBotExo();
-      //showResume()
     }
   } else {
     // Ask the next question
@@ -418,7 +415,6 @@ function selectOption(event) {
       askQuestion();
     } else {
       questionBotExo();
-      //showResult()
     }
   }
 }
@@ -433,8 +429,8 @@ function dataPromt() {
   const matiere = userResponses[1];
   const chapitre = userResponses[2];
   const typeRequete = userResponses[3];
-  const typeExercice = userResponses[4] ? userResponses[4] : "";
-  const modeleExercice = userResponses[5] ? userResponses[5] : "";
+  const typeExercice = userResponses[4] ?  userResponses[4] : "" ;
+  const modeleExercice = userResponses[5] ?  userResponses[5] : "";
 
   const data = {
     classe: className,
@@ -446,15 +442,17 @@ function dataPromt() {
     exercice: modeleExercice,
     previous_conversation: previous_conversation,
   };
-  return data;
+  return data
+
 }
 
 function questionBotExo() {
-  const data = dataPromt();
+  const data = dataPromt()
   dinoExo(data);
 }
 
 function sendChat() {
+
   const message = inputField.value;
   inputField.value = "";
 
@@ -468,10 +466,11 @@ function sendChat() {
   chatBoxBody.innerHTML += `<div class="message"><p>${message}</p></div>`;
   scrollToBottom();
 
-  const data = dataPromt();
+  const data = dataPromt()
   data.prompt = message;
   console.log(data);
   dinoExo(data);
+
 }
 
 function scrollToBottom() {
@@ -480,9 +479,9 @@ function scrollToBottom() {
 
 // Ask the first question
 askQuestion();
-let correctionClicked = false;
 
 function dinoExo(prompt) {
+
   console.log(prompt);
   chatBoxBody.innerHTML += `<div id="loading" class="response loading">.</div>`;
   scrollToBottom();
@@ -504,8 +503,7 @@ function dinoExo(prompt) {
     },
     body: JSON.stringify({ prompt }),
     //body: JSON.stringify({ formData }),
-  })
-    .then((response) => {
+  }).then((response) => {
       return response.json();
     })
     .then((data) => {
@@ -515,53 +513,8 @@ function dinoExo(prompt) {
       previous_conversation += data.message;
       chatBoxBody.innerHTML += `<div class="response"><p>${data.message}</p></div>`;
       scrollToBottom();
-      if (prompt.requete == "Exercices" && !correctionClicked) {
-        chatBoxBody.innerHTML += `<div class="message"><p> Entrainez-vous avant de consulter la correction </p></div>`;
-        let optionsHTML = "";
-        optionsHTML += `<button id="correction-btn" class="option-btn" onclick="showCorrection()">Consulter la correction</button>`;
-        chatBoxBody.innerHTML += `<div class="options">${optionsHTML}</div>`;
-        scrollToBottom();
-      }
-
-      window.showCorrection = function () {
-        correctionClicked = true;
-        inputField.value = "je veux que tu me donne la correction";
-        sendChat();
-        // Ajoutez la classe 'clicked' au bouton lorsqu'il est cliqué
-        const correctionButton = document.getElementById("correction-btn");
-        correctionButton.classList.add("clicked");
-      };
     });
 }
 
-function showResult() {
-  const { options } = questions[currentQuestion - 1];
-  const selectedOption = userResponses[currentQuestion - 1];
 
-  const className = userResponses[0];
-  const matiere = userResponses[1];
-  const chapitre = userResponses[2];
-  const typeRequete = userResponses[3];
-  const typeExercice = userResponses[4];
-  const modeleExercice = userResponses[4];
 
-  // Display the result
-  chatBoxBody.innerHTML += `<div class="response"><p>Vous avez sélectionné la classe ${userResponses[0]}, la matière ${userResponses[1]} et le chapitre ${userResponses[2]}. Vous avez choisi de faire des ${userResponses[3]}.</p></div>`;
-  scrollToBottom();
-}
-
-function showResume() {
-  const className = userResponses[0];
-  const matiere = userResponses[1];
-  const chapitre = userResponses[2];
-  const type = userResponses[3];
-
-  // Display the result
-  chatBoxBody.innerHTML += `<div class="response">
-      <p>
-        Vous avez sélectionné la classe ${userResponses[0]}, la matière ${userResponses[1]} et le chapitre ${userResponses[2]}. Vous avez choisi
-        une requete de type ${userResponses[3]}.
-      </p>
-    </div>`;
-  scrollToBottom();
-}

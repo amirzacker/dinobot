@@ -47,6 +47,7 @@
       #form-control {
         display: flex;
       }
+      
 
       @media (max-width: 768px) {
         .main-container {
@@ -67,8 +68,11 @@
     </style>
   </head>
   <body>
+
+    
     <div class="main-container">
       <div class="form-container showcase">
+        
         <form id="image-form">
           <h1>Dino Exo</h1>
 
@@ -144,14 +148,14 @@
               >Cochez cette case si vous voulez poser votre question.....</label
             >
           </div>
-          <div class="boutons">
   
-          </div>
           <button type="submit"  name="valider" class="btn">Valider</button>
           <button type="submit"  name="reponse">Voir la correction</button>
         </form>
       </div>
       <div class="response-container">
+        <button class="btn-link"  onclick="window.location.href='https://www.google.fr/'">Aller vers DinoBot</button>
+
         <div class="title-reponse">
           <h1>Chat</h1>
         </div>

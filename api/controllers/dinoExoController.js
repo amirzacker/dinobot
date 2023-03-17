@@ -46,19 +46,37 @@ const dinoExo = async (req, res) => {
     if (prompt) {
       prompts = ` ${previous_conversation} : ${prompt} ` 
       //prompts = previous_exercice + ". " + prompt;
-      console.log(prompts);
-      console.log("avec prompts");
     } else {
       //prompts =  resumepromt + prompt;
       prompts = introduction + resumepromt;
-      console.log(prompts);
+     
     }
 //previous_conversation += prompts ;
   }
-
+  console.log(prompts);
   //model: 'text-davinci-tuned-001',
+  const response = openai.createChatCompletion({
+    model: 'gpt-3.5-turbo',
+    messages: [
+      {"role" : "system", "content": "Je suis Dino Bot, votre professeur personnel ! Je suis là pour vous aider à réussir. Je suis là pour vous aider à traiter vos devoirs, à vous expliquer les cours avec des resumés,  à donner des exercices d'entraînement et de découverte en fonction de chaque matière de la 6e à la Terminale."},
+      {"role" : "user", "content": `${prompts}`}
+    ],
+    temperature: 0.4,
+    top_p: 1,
+    frequency_penalty: 0.8,
+    presence_penalty: 0.2,
+    max_tokens: 2048,
+  });
 
-  const response = openai.createCompletion({
+  response
+  .then((data) => {
+    const message = { message: data.data.choices[0].message.content};
+    res.send(message);
+  })
+  .catch((err) => {
+    res.send(err);
+  });
+  /* const response = openai.createCompletion({
     model: "text-davinci-003",
     prompt: prompts,
     temperature: 0.4,
@@ -75,7 +93,7 @@ const dinoExo = async (req, res) => {
     })
     .catch((err) => {
       res.send(err);
-    });
+    }); */
 };
 
 module.exports = { dinoExo };

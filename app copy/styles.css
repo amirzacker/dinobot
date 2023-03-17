@@ -30,14 +30,14 @@ body {
 /* Style the chat box */
 .chat-box {
   margin: 0 auto;
-  width: 800px;
+  width: 600px;
   max-width: 100%;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  max-height: calc(100vh - 90px);
-  height: calc(100vh - 90px);
+  max-height: calc(100vh - 250px);
+  height: calc(100vh - 250px);
 }
 
 .codingnexus {
@@ -66,8 +66,7 @@ body {
 /* Style the chat messages */
 .chat-box-body .message,
 .chat-box-body .response {
-  margin-bottom: 6px;
-  margin-top: 6px;
+  margin-bottom: 16px;
   padding: 8px 16px;
   border-radius: 8px;
 }
@@ -154,21 +153,14 @@ body {
 .option-btn {
   background-color: #4CAF50; /* Couleur de fond */
   color: white; /* Couleur de texte */
-  font-size: 14px; /* Taille de texte */
+  font-size: 16px; /* Taille de texte */
   border: none; /* Supprimer les bordures */
   border-radius: 5px; /* Arrondir les coins */
-  padding: 10px 15px; /* Ajouter de l'espace à l'intérieur du bouton */
-  margin: 2px; /* Ajouter de l'espace autour du bouton */
+  padding: 10px 20px; /* Ajouter de l'espace à l'intérieur du bouton */
+  margin: 5px; /* Ajouter de l'espace autour du bouton */
   cursor: pointer; /* Changer le curseur au survol */
   transition: background-color 0.3s ease; /* Ajouter une transition fluide */
   
-}
-.option-btn.clicked {
-  background-color: #d7203b; /* Couleur de fond */  
-}
-
-p{
-  font-size: 14px; /* Taille de texte */
 }
 
 /* Ajouter une animation de survol */
@@ -181,16 +173,6 @@ p{
   transform: translateY(2px); /* Déplacer le bouton vers le bas */
   background-color: #326b3c; /* Changer la couleur de fond */
 }
-
-
- #reload-btn img {
-    width: 20px;
-    height: 20px;
-  }
-
-  #reload-btn{
-    background-color: rgb(240, 233, 233);
-  }
 
 
 

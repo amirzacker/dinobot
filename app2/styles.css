@@ -96,7 +96,7 @@ form select {
   margin-bottom: 1rem;
 }
 
-form button {
+form button, .btn-link {
   font-size: 20px;
   padding: 1rem 2rem;
   border: none;

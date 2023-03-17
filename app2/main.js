@@ -15,6 +15,7 @@ function onSubmit(e) {
   let prompt;
   let question;
 
+
   if (submitButton.name === "valider") {
     // Le bouton "Valider" a été soumis
     console.log("valider est soumis");

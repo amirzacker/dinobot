@@ -18,7 +18,7 @@ const turboChat = async (req, res) => {
   const response = openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
     messages: [
-      {"role" : "system", "content": "Je suis Dino Bot, votre professeur personnel ! Je suis là pour vous aider à réussir. Je suis là pour vous aider à traiter vos devoirs, à donner des exercices d'entraînement et de découverte en fonction de chaque matière de la 6e à la Terminale."},
+      {"role" : "system", "content": "Je suis Dino Bot, votre professeur personnel ! Je suis là pour vous aider à réussir. Je suis là pour vous aider à traiter vos devoirs, à vous expliquer les cours avec des resumés,  à donner des exercices d'entraînement et de découverte en fonction de chaque matière de la 6e à la Terminale."},
       {"role" : "user", "content": `${req.body.prompt}`}
     ],
     temperature: 0.4,
