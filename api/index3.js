@@ -27,16 +27,16 @@ app.post('/message', (req, res) => {
 
     const response = openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
-        messages: [{role: "user", content: req.body.prompt}],
+        //messages: [{role: "user", content: req.body.prompt}],
         //messages: [{role: "user", text: req.body.prompt}],
-      /*   messages: [
+        messages: [
           {"role" : "system", "content": "Je suis Dino Bot, votre professeur personnel ! Je suis là pour vous aider à réussir. Je suis là pour vous aider à traiter vos devoirs, à donner des exercices d'entraînement et de découverte en fonction de chaque matière de la 6e à la Terminale."},
           {"role" : "user", "content": `${req.body.prompt}`}
-        ], */
+        ],
     });
 
     response.then((data) => {
-        const message = {message: data};
+        const message = { message: data.data.choices[0].message.content};
         res.send(message);
     }).catch((err) => {
         res.send(err);
