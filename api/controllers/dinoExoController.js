@@ -56,7 +56,7 @@ const dinoExo = async (req, res) => {
   console.log(prompts);
   //model: 'text-davinci-tuned-001',
   const response = openai.createChatCompletion({
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-4',
     messages: [
       {"role" : "system", "content": "Je suis Dino Bot, votre professeur personnel ! Je suis là pour vous aider à réussir. Je suis là pour vous aider à traiter vos devoirs, à vous expliquer les cours avec des resumés,  à donner des exercices d'entraînement et de découverte en fonction de chaque matière de la 6e à la Terminale."},
       {"role" : "user", "content": `${prompts}`}

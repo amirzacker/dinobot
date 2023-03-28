@@ -477,7 +477,8 @@ function sendChat() {
 function scrollToBottom() {
   chatBoxBody.scrollTop = chatBoxBody.scrollHeight;
 }
-
+const { question, options } = questions[currentQuestion];
+console.log(questions[currentQuestion]);
 // Ask the first question
 askQuestion();
 let correctionClicked = false;
@@ -519,8 +520,15 @@ function dinoExo(prompt) {
         chatBoxBody.innerHTML += `<div class="message"><p> Entrainez-vous avant de consulter la correction </p></div>`;
         let optionsHTML = "";
         optionsHTML += `<button id="correction-btn" class="option-btn" onclick="showCorrection()">Consulter la correction</button>`;
+        optionsHTML += `<button id="another-exo-btn" class="option-btn" onclick="showAnotherExo()">Autre exercices du meme type</button>`;
         chatBoxBody.innerHTML += `<div class="options">${optionsHTML}</div>`;
         scrollToBottom();
+      } else {
+        //userResponses = userResponses.slice(0, 4); // Supprime tous les éléments après l'index 4
+        questions[currentQuestion].question = "Quel type de requete souhaitez-vous faire ?";
+        questions[currentQuestion].options = ["Exercices", "Résumé du cours"];
+        console.log(userResponses);
+        askQuestion();
       }
 
       window.showCorrection = function () {
@@ -531,6 +539,15 @@ function dinoExo(prompt) {
         const correctionButton = document.getElementById("correction-btn");
         correctionButton.classList.add("clicked");
       };
+
+      window.showAnotherExo = function () {
+        inputField.value = "je veux que tu me donne un autre exercice du meme type";
+        sendChat();
+        // Ajoutez la classe 'clicked' au bouton lorsqu'il est cliqué
+        const otherExoButton = document.getElementById("another-exo-btn");
+        otherExoButton.classList.add("clicked");
+      };
+      
     });
 }
 
